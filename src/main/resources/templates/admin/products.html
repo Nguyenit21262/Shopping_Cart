@@ -13,6 +13,15 @@
 					<div class="card card-sh">
 						<div class="card-header text-center">
 							<p class="fs-4">View Product</p>
+							<th:block th:if="${session.succMsg}">
+								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
+
+							<th:block th:if="${session.errorMsg}">
+								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
+								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
+							</th:block>
 						</div>
 						<div class="card-body">
 							<table class="table">
@@ -35,10 +44,11 @@
 										<td>[[${p.title}]]</td>
 										<td>[[${p.category}]]</td>
 										<td>[[${p.price}]]</td>
-										<td>[[${p.stock}]]</td>
-										<td><a href="#" class="btn btn-sm btn-primary"><i
-												class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a>
-												 <a th:href="@{'/admin/deleteProduct/'+${p.id}}"
+										<td>[[${p.stock}]]</td> 
+										<td><a th:href="@{'/admin/editProduct/'+${p.id}}"
+											class="btn btn-sm btn-primary"><i
+												class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a> <a
+											th:href="@{'/admin/deleteProduct/'+${p.id}}"
 											class="btn btn-sm btn-danger"><i
 												class="fa-solid fa-trash fa-1x"></i>Delete</a></td>
 									</tr>
