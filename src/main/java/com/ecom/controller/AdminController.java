@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-import org.aspectj.apache.bcel.util.ClassPath;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Controller;
@@ -32,7 +31,7 @@ public class AdminController {
 	@Autowired
 	private CategoryService categoryService;
 
-	@GetMapping("/index")
+	@GetMapping("/")
 	public String index() {
 		return "admin/index";
 	}
