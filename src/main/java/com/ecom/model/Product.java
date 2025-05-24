@@ -23,7 +23,10 @@ public class Product {
 	private Double price;
 	private int stock;
 	private String image;
+	
 	private Boolean isActive;
+	private int discount;
+	private Double discountPrice;
 
 	public String getTitle() {
 	    return title;
@@ -49,7 +52,6 @@ public class Product {
 	    this.description = description;
 	}
 
-	
 	public String getCategory() {
 		return category;
 	}
@@ -80,6 +82,22 @@ public class Product {
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public Double getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(Double discountPrice) {
+		this.discountPrice = discountPrice;
 	}
 	
 	public Boolean getIsActive() {
