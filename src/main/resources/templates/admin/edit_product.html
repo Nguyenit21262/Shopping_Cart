@@ -40,27 +40,40 @@
 									<textarea rows="3" cols="" class="form-control"
 										name="description"></textarea>
 								</div>
-
-								<div class="mb-3">
-									<label>Category</label> <select class="form-control"
-										name="category">
-										<option>[[${product.category}]]</option>
-										<option th:each="c:${categories}">[[${c.name}]]</option>
-									</select>
+								
+								<div class="row">
+									<div class="mb-3 col">
+										<label>Category</label> <select class="form-control"
+											name="category">
+											<option>[[${product.category}]]</option>
+											<option th:each="c:${categories}">[[${c.name}]]</option>
+										</select>
+									</div>
+									
+									<div class="mb-3 col">
+										<label>Enter price</label> <input type="number" name="price"
+											th:value="${product.price}" class="form-control">
+									</div>									
 								</div>
-
-								<div class="mb-3">
-									<label>Enter price</label> <input type="number" name="price" th:value="${product.price}"
-										class="form-control">
+								
+								<div class="row">
+									<div class="mb-3 col">
+										<label>Discount</label> <input type="number" name="discount"
+											th:value="${product.discount}" class="form-control">
+									</div>
+									<div class="mb-3 col"> 
+										<label>Discount Price</label> <input type="number" readonly
+											th:value="${product.discountPrice}" class="form-control">
+									</div>
 								</div>
 
 								<div class="row">
-									<div class="mb-3">
+									<div class="mb-3 col">
 										<label>Enter stock</label> <input type="text" name="stock" th:value="${product.stock}"
 											class="form-control">
 									</div>
 
-									<div class="mb-3">
+									<div class="mb-3 col">
 										<label>Upload image</label> <input type="file" name="file" 
 											class="form-control">
 									</div>
