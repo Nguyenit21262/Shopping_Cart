@@ -23,6 +23,7 @@ public class Product {
 	private Double price;
 	private int stock;
 	private String image;
+	private Boolean isActive;
 
 	public String getTitle() {
 	    return title;
@@ -81,6 +82,12 @@ public class Product {
 		this.image = image;
 	}
 	
-	
+	public Boolean getIsActive() {
+		return isActive;
+	}
+
+	public void setIsActive(Boolean isActive) {
+		this.isActive = isActive;
+	}
 	
 }

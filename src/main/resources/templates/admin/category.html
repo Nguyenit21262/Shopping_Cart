@@ -77,7 +77,7 @@
 									<tr th:each="cat,c:${categories}">
 										<th scope="row">[[${c.count}]]</th>
 										<td>[[${cat.name}]]</td>
-										<td>[[${cat.isActive}]]<td>
+										<td>[[${cat.isActive}]]</td>
 										<td><img 
 										     th:src="@{'/img/category_img/' + ${cat.imageName}}" 
 										     width="50px" height="50px"></td>
