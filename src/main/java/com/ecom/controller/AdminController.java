@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
 import com.ecom.service.ProductService;
 import com.ecom.service.UserService;
@@ -45,12 +46,17 @@ public class AdminController {
     @Autowired
 	private UserService userService;
     
+    @Autowired
+    private CartService cartService;
+    
     @ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
 		if(p != null ) {
 			String email = p.getName();
 			UserDtls userDtls = userService.getUserByEmail(email);
 			m.addAttribute("user", userDtls);
+			Integer countCart = cartService.getCountCart(userDtls.getId());
+			m.addAttribute("countCart", countCart);
 		}
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
 		m.addAttribute("category", allActiveCategory);
