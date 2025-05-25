@@ -1,6 +1,6 @@
 package com.ecom.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -19,7 +19,7 @@ public class ProductOrder {
 	
 	private String orderId;
 	
-	private Date orderDate;
+	private LocalDate orderDate;
 	
 	@ManyToOne
 	private Product product;
@@ -54,11 +54,11 @@ public class ProductOrder {
 		this.orderId = orderId;
 	}
 
-	public Date getOrderDate() {
+	public LocalDate getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(LocalDate orderDate) {
 		this.orderDate = orderDate;
 	}
 
