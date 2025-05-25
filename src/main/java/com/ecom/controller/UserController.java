@@ -9,23 +9,30 @@ import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.ecom.config.SecurityConfig;
 import com.ecom.model.Cart;
 import com.ecom.model.Category;
+import com.ecom.model.OrderRequest;
 import com.ecom.model.UserDtls;
 import com.ecom.repository.UserRepository;
 import com.ecom.service.UserService;
-
+import com.ecom.service.impl.OrderServiceImpl;
 import jakarta.servlet.http.HttpSession;
 
 import com.ecom.service.CartService;
 import com.ecom.service.CategoryService;
+import com.ecom.service.OrderService;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    private final OrderServiceImpl orderServiceImpl;
+
+    private final UserRepository userRepository;
 
     private final SecurityConfig securityConfig;
 	
@@ -36,10 +43,15 @@ public class UserController {
 	private CategoryService categoryService;
 	
 	@Autowired
+	private OrderService orderService;
+	
+	@Autowired
 	private CartService cartService;
 
-    UserController(SecurityConfig securityConfig) {
+    UserController(SecurityConfig securityConfig, UserRepository userRepository, OrderServiceImpl orderServiceImpl) {
         this.securityConfig = securityConfig;
+        this.userRepository = userRepository;
+        this.orderServiceImpl = orderServiceImpl;
     }
 
 	@GetMapping("/")
@@ -79,8 +91,8 @@ public class UserController {
 		List<Cart> carts = cartService.getCartByUser(user.getId());
 		m.addAttribute("carts", carts);
 		
-		if(carts.size()>0) {
-			Double totalOrderPrice = carts.get(carts.size()-1).getTotalOrderPrice();
+		if(carts.size() > 0) {
+			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
 			m.addAttribute("totalOrderPrice", totalOrderPrice );
 		}
 		
@@ -90,7 +102,7 @@ public class UserController {
 	@GetMapping("/cartQuantityUpdate")
 	public String updateCartQuantity(@RequestParam String sy, @RequestParam Integer cid ) {
 		
-		cartService.updateQuantity(sy,cid);
+		cartService.updateQuantity(sy, cid);
 		return "redirect:/user/cart";
 	}
 	
@@ -100,4 +112,34 @@ public class UserController {
 		
 		return userDtls;
 	}
+	
+	@GetMapping("/order")
+	public String orderPage(Principal p, Model m) {
+		UserDtls user = getLoggedInUserDetails(p);
+		List<Cart> carts = cartService.getCartByUser(user.getId());
+		m.addAttribute("carts", carts);
+		
+		if(carts.size() > 0) {
+			Double orderPrice = carts.get(carts.size() - 1).getTotalOrderPrice();
+			Double totalOrderPrice = carts.get(carts.size() - 1).getTotalOrderPrice() + 250 + 100;
+			m.addAttribute("orderPrice",orderPrice);
+			m.addAttribute("totalOrderPrice", totalOrderPrice );
+		}
+		return "/user/order";
+	}
+	
+	@PostMapping("/save-order")
+	public String saveOrder(@ModelAttribute OrderRequest request, Principal p) {
+		//System.out.println(request);
+		
+		UserDtls user = getLoggedInUserDetails(p);
+		orderService.saveOrder(user.getId(), request);
+		return "redirect:/user/success";
+	}
+	
+	@GetMapping("/success")
+	public String loadSuccess() {
+		return "/user/success";
+	}
+	
 }
