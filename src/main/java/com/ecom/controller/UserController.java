@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.ecom.config.SecurityConfig;
 import com.ecom.model.Cart;
 import com.ecom.model.Category;
@@ -178,5 +180,21 @@ public class UserController {
 		return "redirect:/user/user-orders";
 	}
 	
+	@GetMapping("/profile")
+	public String profile() {
+		return  "/user/profile";
+	}
+	
+	@PostMapping("/update-profile")
+	public String updateProfile(@ModelAttribute UserDtls user, @RequestParam MultipartFile img,HttpSession session) {
+		UserDtls updateUserProfile = userService.updateUserProfile(user, img);
+		if(ObjectUtils.isEmpty(updateUserProfile)) {
+			session.setAttribute("errorMsg", "Profile not update");
+		}else {
+			session.setAttribute("succMsg", "Profile updated");
+		}
+		return "redirect:/user/profile";
+		
+	}
 	
 }
