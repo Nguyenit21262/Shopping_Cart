@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ObjectUtils;
@@ -32,22 +33,22 @@ import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
-	
+
 	@Autowired
 	private CategoryService categoryService;
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private CartService cartService;
-	
+
 	@ModelAttribute
 	public void getUserDetails(Principal p, Model m) {
-		if(p != null ) {
+		if (p != null) {
 			String email = p.getName();
 			UserDtls userDtls = userService.getUserByEmail(email);
 			m.addAttribute("user", userDtls);
@@ -74,13 +75,28 @@ public class HomeController {
 	}
 
 	@GetMapping("/products")
-	public String products(Model m,@RequestParam(value = "category", defaultValue = "") String category ) {
-		System.out.println("category =" + category);
+	public String products(Model m,@RequestParam(value = "category", defaultValue = "") String category,
+			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize", defaultValue = "9") Integer pageSize) {
+		//System.out.println("category =" + category);
 		List<Category> categories = categoryService.getAllActiveCategory();
-		List<Product> products = productService.getAllActiveProducts(category); 
-		m.addAttribute("categories", categories);
-		m.addAttribute("products", products);
 		m.addAttribute("paramValue", category);
+		m.addAttribute("categories", categories);
+		
+		// List<Product> products = productService.getAllActiveProducts(category); 		
+		// m.addAttribute("products", products);
+		
+		Page<Product> page = productService.getAllActiveProductPagination(pageNo, pageSize, category);
+		List<Product> products = page.getContent();
+		m.addAttribute("products", products);
+		m.addAttribute("productsSize", products.size());
+		
+		m.addAttribute("pageNo", page.getNumber());
+		m.addAttribute("pageSize", pageSize);
+		m.addAttribute("totalElements", page.getTotalElements());
+		m.addAttribute("totalPages", page.getTotalPages());
+		m.addAttribute("isFirst", page.isFirst());
+		m.addAttribute("isLast", page.isLast());
 		
 		return "product";
 	}
@@ -89,45 +105,45 @@ public class HomeController {
 	public String viewProduct(@PathVariable int id, Model m) {
 		Product productById = productService.getProductById(id);
 		m.addAttribute("product", productById);
-		
+
 		return "view_product";
 	}
 
 	@PostMapping("/saveUser")
-	public String saveUser(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session) throws IOException {
+	public String saveUser(@ModelAttribute UserDtls user, @RequestParam("img") MultipartFile file, HttpSession session)
+			throws IOException {
 		String imageName = file.isEmpty() ? "default.jpg" : file.getOriginalFilename();
 		user.setProfileImage(imageName);
 		UserDtls saveUser = userService.saveUser(user);
 
 		if (!ObjectUtils.isEmpty(saveUser)) {
 			if (!file.isEmpty()) {
-				
+
 				File saveFile = new ClassPathResource("static/img").getFile();
 				Path path = Path.of(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
 						+ file.getOriginalFilename());
-			//	System.out.print(path);
+				// System.out.print(path);
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-				
+
 			}
 			session.setAttribute("succMsg", "Register successfully");
 
 		} else {
-			session.setAttribute("errorMsg","Something wrong on server ");
+			session.setAttribute("errorMsg", "Something wrong on server ");
 		}
-		
+
 		return "redirect:/register";
 	}
-	
+
 	@GetMapping("/search-product")
-	public String searchProduct(@RequestParam String ch,Model m) {
-		List<Product> searchProducts =  productService.searchProduct(ch);
-		m.addAttribute("products" ,searchProducts);
-		
+	public String searchProduct(@RequestParam String ch, Model m) {
+		List<Product> searchProducts = productService.searchProduct(ch);
+		m.addAttribute("products", searchProducts);
+
 		List<Category> categories = categoryService.getAllActiveCategory();
 		m.addAttribute("categories", categories);
-		
+
 		return "product";
 	}
-	
-	
+
 }

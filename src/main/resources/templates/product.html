@@ -28,9 +28,11 @@
 					<div class="card shadow-sm p-0 mb-5 bg-body-tertiary rounded">
 						<div class="card-body">
 							<div class="list-group">
-								<p class="fs-5"><i class="fa-solid fa-list"></i> Category</p>
+								<p class="fs-5">
+									<i class="fa-solid fa-list"></i> Category
+								</p>
 								<a href="/products"
-									th:classappend="${paramValue==''} ? 'active' : '' "
+									th:classappend="${paramValue==''} ? 'active' : ''"
 									class="list-group-item list-group-item-warning"
 									aria-current="true"> All </a> <a th:each="c:${categories}"
 									th:href="@{'/products?category='+${c.name}}"
@@ -48,7 +50,7 @@
 
 							<div class="row">
 
-								<th:block th:if="${products.size >0}">
+								<th:block th:if="${productsSize >0}">
 
 									<div class="col-md-3" th:each="p:${products}">
 										<div class="card ">
@@ -76,7 +78,7 @@
 
 								</th:block>
 
-								<th:block th:unless="${products.size >0}">
+								<th:block th:unless="${productsSize >0}">
 									<p class="fs-4 text-center mt-4 text-danger">Product not
 										available</p>
 								</th:block>
@@ -87,6 +89,35 @@
 							<!-- End -->
 						</div>
 					</div>
+					<!-- Start Pagination -->
+					<div class="row">
+						<div class="col-md-4">Total Product : [[${totalElements}]]</div>
+						<div class="col-md-6">
+							<th:block th:if="${productsSize>0}">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"
+											th:classappend="${isFirst} ? 'disabled':''"><a
+											class="page-link"
+											th:href="@{'/products?pageNo='+${pageNo-1}}"
+											aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+										</a></li>
+										<li th:each="i:${#numbers.sequence(1,totalPages)}"
+											class="page-item" th:classappend="${pageNo+1==i}?'active':''"><a
+											class="page-link" th:href="@{'/products?pageNo='+${i-1}}">[[${i}]]</a></li>
+
+										<li class="page-item"
+											th:classappend="${isLast} ? 'disabled':''"><a
+											class="page-link"
+											th:href="@{'/products?pageNo='+${pageNo+1}}"
+											aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+										</a></li>
+									</ul>
+								</nav>
+						</div>
+						</th:block>
+					</div>
+
 				</div>
 			</div>
 		</div>
