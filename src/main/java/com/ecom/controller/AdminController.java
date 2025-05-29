@@ -90,7 +90,7 @@ public class AdminController {
 	public String saveCategory(@ModelAttribute Category category, @RequestParam("file") MultipartFile file,
 			HttpSession session) throws IOException {
 
-		String imageName = !file.isEmpty() ? file.getOriginalFilename() : "default.jpg";
+		String imageName = file != null ? file.getOriginalFilename() : "default.jpg";
 		category.setImageName(imageName);
 
 		Boolean existsCategory = categoryService.existsCategory(category.getName());
@@ -103,8 +103,8 @@ public class AdminController {
 				session.setAttribute("errorMsg", "Not saved! Internal server error");
 			} else {
 				File saveFile = new ClassPathResource("static/img").getFile();
-				Path path = Paths
-						.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator + imageName);
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
+						+ file.getOriginalFilename());
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				session.setAttribute("succMsg", "Saved successfully");
 			}
@@ -152,8 +152,8 @@ public class AdminController {
 			if (!file.isEmpty()) {
 				File saveFile = new ClassPathResource("static/img").getFile();
 
-				Path path = Paths
-						.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator + imageName);
+				Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "category_img" + File.separator
+						+ file.getOriginalFilename());
 
 				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 			}
@@ -182,8 +182,8 @@ public class AdminController {
 
 			File saveFile = new ClassPathResource("static/img").getFile();
 
-			Path path = Paths
-					.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator + imageName);
+			Path path = Paths.get(saveFile.getAbsolutePath() + File.separator + "product_img" + File.separator
+					+ image.getOriginalFilename());
 
 			Files.copy(image.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 
@@ -196,15 +196,15 @@ public class AdminController {
 	}
 
 	@GetMapping("/products")
-	public String loadViewProduct(@RequestParam(defaultValue = "") String ch ,Model m) {
+	public String loadViewProduct(@RequestParam(defaultValue = "") String ch, Model m) {
 		List<Product> products = null;
-		
-		if(ch!=null && ch.length()>0) {
+
+		if (ch != null && ch.length() > 0) {
 			products = productService.searchProduct(ch);
 		} else {
-			 products = productService.getAllProducts();
+			products = productService.getAllProducts();
 		}
-		
+
 		m.addAttribute("products", products);
 		return "admin/products";
 	}
@@ -298,7 +298,7 @@ public class AdminController {
 
 	@GetMapping("/search-order")
 	public String searchOrder(@RequestParam String orderId, Model m, HttpSession session) {
-		if (orderId != null &&orderId.length() > 0) {
+		if (orderId != null && orderId.length() > 0) {
 
 			ProductOrder order = orderService.getOrdersByOrderId(orderId.trim());
 
@@ -310,7 +310,7 @@ public class AdminController {
 
 			}
 			m.addAttribute("srch", true);
-		}else {
+		} else {
 			List<ProductOrder> allOrders = orderService.getAllOrders();
 			m.addAttribute("orders", allOrders);
 			m.addAttribute("srch", false);
