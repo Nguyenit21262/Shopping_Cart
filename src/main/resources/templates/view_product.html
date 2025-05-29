@@ -24,12 +24,11 @@
 					</th:block>
 
 					<div class="col-md-6 text-end">
-						<img alt="" src="/img/product_img/laptop.jpg" width="330px"
-							height="400px">
+						<img alt="" th:src="${product.image}" width="330px" height="400px">
 					</div>
 
 					<div class="col-md-6">
-						<p class="fs-3">[[${product.title}]]</p>
+						<p class="fs-3 fw-bold">[[${product.title}]]</p>
 						<p>
 							<span class="fw-bold">Description: </span><br>
 							[[${product.description}]]
@@ -50,11 +49,11 @@
 						</p>
 
 						<p class="fs-5 fw-bold">
-							Price :&nbsp; &nbsp; &nbsp; &nbsp; [[${product.discountPrice}]] <i
-								class="fas fa-money-bill-wave"></i> VND <span
+							Price :&nbsp; &nbsp; &nbsp; &nbsp; [[${product.discountPrice}]]
+							VND <span
 								class="fs-6 text-decoration-line-through text-secondary">[[${product.price}]]
-								<i class="fas fa-money-bill-wave"></i> VND
-							</span> <span class="fs-6 text-danger"> -[[${product.discount}]] %</span>
+								VND </span> <span class="fs-6 text-danger">
+								-[[${product.discount}]] %</span>
 						</p>
 						<div class="row">
 							<div class="col-md-4 text-success text-center p-2">
@@ -72,14 +71,14 @@
 
 							<th:block th:if="${product.stock > 0}">
 								<th:block th:if="${user == null}">
-									<a href="/signin" class="btn btn-danger col-md-12">Add To
+									<a href="/signin" class="btn btn-danger col-md-12"> Add To
 										Cart</a>
 								</th:block>
 
 								<th:block th:unless="${user == null}">
 									<a
 										th:href="@{'/user/addCart?pid=' + ${product.id} + '&uid=' + ${user.id}}"
-										class="btn btn-danger col-md-12">Add To Cart</a>
+										class="btn btn-danger col-md-12"> Add To Cart </a>
 								</th:block>
 							</th:block>
 

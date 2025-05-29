@@ -9,7 +9,7 @@
 	<section>
 		<div class="container-fluid mt-5 p-5">
 			<div class="row">
-				<p class="text-center fs-3">My Orders</p>
+				<p class="text-center fs-3 fw-bold">My Orders</p>
 				<th:block th:if="${session.succMsg}">
 					<p class="text-success fw-bold text-center">[[${session.succMsg}]]</p>
 					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
