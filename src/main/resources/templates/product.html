@@ -12,7 +12,8 @@
 				<div class="col-md-8 offset-md-2 p-2 mt-5">
 					<form action="search-product" method="get">
 						<div class="input-group">
-							<input type="text" class="form-control" name="ch">
+							<input type="text" class="form-control" name="ch"
+								placeholder="What are you looking for...">
 							<button class="btn btn-light text-dark ms-1 col-md-2">
 								<i class="fa-solid fa-magnifying-glass"></i> Search
 							</button>
@@ -33,7 +34,7 @@
 								</p>
 								<a href="/products"
 									th:classappend="${paramValue==''} ? 'active' : ''"
-									class="list-group-item list-group-item-warning"
+									class="list-group-item list-group-item-primary"
 									aria-current="true"> All </a> <a th:each="c:${categories}"
 									th:href="@{'/products?category='+${c.name}}"
 									th:classappend="${paramValue == c.name} ? 'active' : '' "
@@ -46,7 +47,7 @@
 				<div class="col-md-10">
 					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-body">
-							<p class="fs-3 text-center">Products</p>
+							<p class="fs-3 text-center fw-bold">Best Selling Products</p>
 
 							<div class="row">
 
@@ -57,8 +58,8 @@
 											<div class="card card-body">
 												<img alt="" th:src="@{'img/product_img/'+${p.image}}"
 													width="100%" height="150px">
-												<p class="fs-5 text-center">[[${p.title}]]</p>
-												<div class="row text-center">
+												<p class="fs-5 ">[[${p.title}]]</p>
+												<div class="row ">
 													<p class="fs-6">
 														<span class="fw-bold text-danger">[[${p.discountPrice}]]
 															&#8363;</span> <br> <span
@@ -67,10 +68,26 @@
 															%</span>
 													</p>
 
+
+
 													<a th:href="@{'/product/'+${p.id}}"
-														class="btn col-md-8 offset-md-2 shadow-lg bg-body-tertiary rounded text-primary">Buy
-														Now <i class="fa-solid fa-cart-shopping"></i>
-													</a>
+														class="btn btn-outline-warning col-md-8 offset-md-2 shadow-lg bg-body-tertiary rounded text-dark fw-bold mb-3">Buy
+														Now </a>
+
+													<div class="progress rounded-pill" style="height: 25px;"
+														role="progressbar" aria-label="Warning example"
+														aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+														<div
+															class="progress-bar bg-warning rounded-pill fw-bold fs-6 text-dark
+           d-flex flex-row align-items-center justify-content-center"
+															style="width: 100%;" role="progressbar"
+															aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+															<i class="fa-solid fa-fire me-1" style="color: #7e2f1b;"></i>
+															15/15 seats left
+														</div>
+													</div>
+
+
 												</div>
 											</div>
 										</div>
