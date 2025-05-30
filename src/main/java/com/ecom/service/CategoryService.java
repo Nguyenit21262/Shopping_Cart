@@ -9,11 +9,11 @@ import com.ecom.model.Category;
 
 public interface CategoryService {
 
-	 Category saveCategory(Category category);
+	 public Category saveCategory(Category category);
 	
-	 List<Category> getAllCategory();
+	 public List<Category> getAllCategory();
 	 
-	 Boolean existsCategory(String name);
+	 public Boolean existsCategory(String name);
 	 
 	 public Boolean deleteCategory(int id);
 	 

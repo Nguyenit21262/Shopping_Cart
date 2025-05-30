@@ -14,12 +14,12 @@
 						<div class="card-header text-center">
 							<p class="fs-4">Edit Category</p>
 							<th:block th:if="${session.succMsg}">
-								<p class="text-success fw-bold"> [[${session.succMsg}]]</p>
+								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
 							<th:block th:if="${session.errorMsg}">
-								<p class="text-danger fw-bold"> [[${session.errorMsg}]]</p>
+								<p class="text-danger fw-bold">[[${session.errorMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 							</th:block>
 
@@ -38,17 +38,18 @@
 									<label>Status</label>
 
 									<div class="form-check">
-										<input class="form-check-input" type="radio" checked
-										    th:checked="${category.isActive==true}" value="true" 
-										    name="isActive" id="radioDefault1"> <label
+										<input class="form-check-input" type="radio"
+											th:checked="${category.isActive==true}" value="true"
+											name="isActive" id="flexRadioDefault1"> <label
 											class="form-check-label" for="flexRadioDefault1">
 											Active </label>
 									</div>
 									<div class="form-check">
 										<input class="form-check-input" type="radio" name="isActive"
 											th:checked="${category.isActive==false}" value="false"
-											id="radioDefault2" checked> <label 
-											class="form-check-label" for="flexRadioDefault2"> Inactive </label>
+											id="flexRadioDefault2" checked> <label
+											class="form-check-label" for="flexRadioDefault2">
+											Inactive </label>
 									</div>
 								</div>
 
@@ -56,7 +57,8 @@
 									<label>Upload Image</label> <input type="file" name="file"
 										class="form-control">
 								</div>
-								<img th:src="@{'/img/category_img/'+${category.imageName}}" width="100px" height="100px"> 
+								<img th:src="@{'/img/category_img/'+${category.imageName}}"
+									width="100px" height="100px">
 								<button class="btn btn-warning col-md-12">Save</button>
 							</form>
 						</div>

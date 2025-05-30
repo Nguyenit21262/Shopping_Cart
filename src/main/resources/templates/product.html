@@ -53,11 +53,11 @@
 
 								<th:block th:if="${productsSize >0}">
 
-									<div class="col-md-3" th:each="p:${products}">
+									<div class="col-md-3 mb-4" th:each="p:${products}">
 										<div class="card ">
 											<div class="card card-body">
 												<img alt="" th:src="@{'img/product_img/'+${p.image}}"
-													width="100%" height="150px">
+													width="100%" height="200px">
 												<p class="fs-5 ">[[${p.title}]]</p>
 												<div class="row ">
 													<p class="fs-6">
