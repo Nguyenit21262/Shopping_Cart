@@ -9,10 +9,10 @@
 	<section>
 		<div class="container fluid mt-5 p-5">
 			<div class="row">
-				<p class="text-center fs-3">All Products</p>
+				<p class="text-center fs-3 fw-bold">All Products</p>
 				<hr>
-				<a href="/admin/" class="text-decoration-none"><i
-					class="fa-solid fa-arrow-left"></i>Back</a>
+				<a href="/admin/" class="text-decoration-none text-dark fw-bold"><i
+					class="fa-solid fa-arrow-left"></i> Back</a>
 				<th:block th:if="${session.succMsg}">
 					<p class="text-success fw-bold">[[${session.succMsg}]]</p>
 					<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
@@ -31,12 +31,12 @@
 				<div class="col-md-4 p-3">
 
 					<form action="/admin/products" method="get">
-						<div class="row">
+						<div class="row g-1">
 							<div class="col">
-								<input type="text" class="form-control" name="ch">
+								<input type="text" class="form-control" name="ch" placeholder="Search here...">
 							</div>
 							<div class="col">
-								<button class="btn btn-primary">Search</button>
+								<button class="btn btn-primary ">Search</button>
 							</div>
 						</div>
 					</form>
@@ -75,11 +75,11 @@
 							<td>[[${p.isActive}]]</td>
 							<td>[[${p.stock}]]</td>
 							<td><a th:href="@{'/admin/editProduct/'+${p.id}}"
-								class="btn btn-sm btn-primary"><i
-									class="fa-solid fa-pen-to-square fa-1x"></i>Edit</a> <a
+								class="btn btn-sm "><i
+									class="fa-solid fa-pen-to-square fa-1x"></i></a> <a
 								th:href="@{'/admin/deleteProduct/'+${p.id}}"
-								class="btn btn-sm btn-danger"><i
-									class="fa-solid fa-trash fa-1x"></i>Delete</a></td>
+								class="btn btn-sm "><i
+									class="fa-solid fa-trash fa-1x"></i></a></td>
 						</tr>
 					</tbody>
 				</table>

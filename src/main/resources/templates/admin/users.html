@@ -7,11 +7,11 @@
 </head>
 <body>
 	<section>
-		<div class="container-fluid mt-5 p-5">
+		<div class="container-fluid p-5 mt-5">
 			
 					<div class="card card-sh">
 						<div class="card-header text-center">
-							<p class="fs-4">Users</p>
+							<p class="fs-4 fw-bold">Users</p>
 							<th:block th:if="${session.succMsg}">
 								<p class="text-success fw-bold">[[${session.succMsg}]]</p>
 								<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
@@ -49,11 +49,11 @@
 																				
 										
 										<td><a th:href="@{'/admin/update_Status?status=true&id='+${u.id}}"
-											class="btn btn-sm btn-primary"><i
+											class="btn btn-sm "><i
 												class="fa-solid fa-pen-to-square fa-1x"></i>Active</a>
 												
 												 <a th:href="@{'/admin/update_Status?status=false&id='+${u.id}}"
-											class="btn btn-sm btn-danger"><i
+											class="btn btn-sm "><i
 												class="fa-solid fa-trash fa-1x"></i>InActive</a></td>
 									</tr>
 								</tbody>
