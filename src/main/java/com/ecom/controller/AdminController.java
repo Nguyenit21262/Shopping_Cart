@@ -66,7 +66,7 @@ public class AdminController {
 			m.addAttribute("countCart", countCart);
 		}
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("category", allActiveCategory);
+		m.addAttribute("categories", allActiveCategory);
 	}
 
 	@GetMapping("/")
@@ -83,7 +83,7 @@ public class AdminController {
 
 	@GetMapping("/category")
 	public String category(Model m, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
-			@RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize) {
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
 
 		// m.addAttribute("categories", categoryService.getAllCategory());
 		Page<Category> page = categoryService.getAllCategoryPagination(pageNo, pageSize);
@@ -217,7 +217,7 @@ public class AdminController {
 	@GetMapping("/products")
 	public String loadViewProduct(@RequestParam(defaultValue = "") String ch, Model m,
 			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
-			@RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize) {
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
 
 		/*
 		 * List<Product> products = null;
@@ -304,7 +304,7 @@ public class AdminController {
 
 	@GetMapping("/orders")
 	public String getAllOrders(Model m, @RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
-			@RequestParam(name = "pageSize", defaultValue = "5") Integer pageSize) {
+			@RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
 //		List<ProductOrder> allOrders = orderService.getAllOrders();
 //		m.addAttribute("orders", allOrders);
 //		m.addAttribute("srch", false);

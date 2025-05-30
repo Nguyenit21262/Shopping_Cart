@@ -74,7 +74,7 @@ public class UserController {
 			m.addAttribute("countCart", countCart);
 		}
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("category", allActiveCategory);
+		m.addAttribute("categories", allActiveCategory);
 	}
 	
 	@GetMapping("/addCart")

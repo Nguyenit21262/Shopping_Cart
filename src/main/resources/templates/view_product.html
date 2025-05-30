@@ -23,8 +23,9 @@
 						<th:block th:text="${@commonServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
 
-					<div class="col-md-6 text-end">
-						<img alt="" th:src="${product.image}" width="330px" height="400px">
+					<div class="col-md-5 text-end ">
+						<img alt="" th:src="@{'/img/product_img/' + ${product.image}}" width="330px" height="400px">
+
 					</div>
 
 					<div class="col-md-6">

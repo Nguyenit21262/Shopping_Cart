@@ -44,66 +44,17 @@
 		<!-- end slider -->
 
 		<!-- category module -->
-		<div class="container">
-			<div class="row g-0">
+		<div class="container-fluid p-3">
+			<div class="row">
 				<p class="text-center fs-4 m-4 fw-bold">Category</p>
 
-				<div class="col-md-2">
+				<div class="col-md-2" th:each="c:${category}">
 					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
 						<div class="card-body text-center">
-							<img alt="" src="img/category_img/SmartPhone.jpg" width="100%"
-								height="120px">
-							<p>SmartPhone</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/category_img/Fan.jpg" width="100%"
-								height="120px">
-							<p>Accessory</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/category_img/Watch.jpg" width="100%"
-								height="120px">
-							<p>Watch</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/category_img/laptop.jpg" width="100%"
-								height="120px">
-							<p>Laptop</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/category_img/mobile.png" width="100%"
-								height="120px">
-							<p>Mobile</p>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-2">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/category_img/ipad.jpg" width="100%"
-								height="120px">
-							<p>Tablet</p>
+							<img th:src="@{'img/category_img/' +${c.imageName}}" width="100%"
+								height="150px"> <a
+								th:href="@{'/products?category='+${c.name}}"
+								class="text-decoration-none text-dark">[[${c.name}]]</a>
 						</div>
 					</div>
 				</div>
@@ -116,41 +67,19 @@
 			<div class="row">
 				<p class="text-center fs-4 fw-bold">Suggestions For You</p>
 
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
+				<div class="col-md-3" th:each="p:${products}">
+					<div class="card shadow-sm p-3 mb-4 bg-body-tertiary rounded">
 						<div class="card-body text-center">
-							<img alt="" src="img/product_img/LaptopHp.jpg" class=""
-								width="65%" height="140px">
+							<img th:src="@{'img/product_img/' + ${p.image}}" class=""
+								width="65%" height="170px">
+							<p class="text-center">
+								<a th:href="@{'/product/' +${p.id}}" class="text-decoration-none text-dark">[[${p.title}]]</a>
+							</p>
 						</div>
 					</div>
 				</div>
 
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/LaptopLenovo.jpg" class=""
-								width="65%" height="140px">
-						</div>
-					</div>
-				</div>
 
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/Iphone.jpg" class="" width="65%"
-								height="140px">
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="card shadow-sm p-3 mb-5 bg-body-tertiary rounded">
-						<div class="card-body text-center">
-							<img alt="" src="img/product_img/SmartWatch.jpg" class=""
-								width="65%" height="140px">
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 
