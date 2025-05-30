@@ -9,6 +9,8 @@
 	<section>
 		<div class="container-fluid p-5 mt-5">
 			<div class="row">
+				<a href="/admin/" class="text-decoration-none text-dark fw-bold"><i
+					class="fa-solid fa-arrow-left"></i> Back</a>
 				<div class="col-md-3">
 					<div class="card card-sh">
 						<div class="card-header text-center">
@@ -37,8 +39,8 @@
 
 									<div class="form-check">
 										<input class="form-check-input" type="radio" checked
-											value="true" name="isActive" id="flexRadioDefault1"> <label
-											class="form-check-label" for="flexRadioDefault1">
+											value="true" name="isActive" id="flexRadioDefault1">
+										<label class="form-check-label" for="flexRadioDefault1">
 											Active </label>
 									</div>
 									<div class="form-check">
@@ -62,7 +64,8 @@
 
 				<div class="col-md-8">
 					<div class="card card-sh">
-						<div class="card-header text-center fs-4 fw-bold">Category Details</div>
+						<div class="card-header text-center fs-4 fw-bold">Category
+							Details</div>
 						<div class="card-body">
 							<table class="table">
 								<thead>
@@ -87,39 +90,40 @@
 											class="btn btn-sm"><i
 												class="fa-solid fa-pen-to-square fa-1x"></i></a> <a
 											th:href="@{'/admin/deleteCategory/'+${cat.id}}"
-											class="btn btn-sm"><i
-												class="fa-solid fa-trash fa-1x"></i></a></td>
+											class="btn btn-sm"><i class="fa-solid fa-trash fa-1x"></i></a></td>
 
 									</tr>
 								</tbody>
 							</table>
 							<div class="row">
-								<div class="col-md-4 fw-bold">Total Category : [[${totalElements}]]</div>
+								<div class="col-md-4 fw-bold">Total Category :
+									[[${totalElements}]]</div>
 								<div class="col-md-6">
-									
-										<nav aria-label="Page navigation example">
-											<ul class="pagination">
-												<li class="page-item"
-													th:classappend="${isFirst} ? 'disabled':''"><a
-													class="page-link"
-													th:href="@{'/admin/category?pageNo='+${pageNo-1}}"
-													aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-												</a></li>
-												<li th:each="i:${#numbers.sequence(1,totalPages)}"
-													class="page-item"
-													th:classappend="${pageNo+1==i}?'active':''"><a
-													class="page-link" th:href="@{'/admin/category?pageNo='+${i-1}}">[[${i}]]</a></li>
 
-												<li class="page-item"
-													th:classappend="${isLast} ? 'disabled':''"><a
-													class="page-link"
-													th:href="@{'/admin/category?pageNo='+${pageNo+1}}"
-													aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-												</a></li>
-											</ul>
-										</nav>
+									<nav aria-label="Page navigation example">
+										<ul class="pagination">
+											<li class="page-item"
+												th:classappend="${isFirst} ? 'disabled':''"><a
+												class="page-link"
+												th:href="@{'/admin/category?pageNo='+${pageNo-1}}"
+												aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+											</a></li>
+											<li th:each="i:${#numbers.sequence(1,totalPages)}"
+												class="page-item"
+												th:classappend="${pageNo+1==i}?'active':''"><a
+												class="page-link"
+												th:href="@{'/admin/category?pageNo='+${i-1}}">[[${i}]]</a></li>
+
+											<li class="page-item"
+												th:classappend="${isLast} ? 'disabled':''"><a
+												class="page-link"
+												th:href="@{'/admin/category?pageNo='+${pageNo+1}}"
+												aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+											</a></li>
+										</ul>
+									</nav>
 								</div>
-								
+
 							</div>
 
 						</div>
