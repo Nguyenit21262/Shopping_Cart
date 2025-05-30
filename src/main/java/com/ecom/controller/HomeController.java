@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collector;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
@@ -60,7 +61,12 @@ public class HomeController {
 	}
 
 	@GetMapping("/")
-	public String index() {
+	public String index(Model m) {
+		
+		List<Category> allActiveCategory = categoryService.getAllActiveCategory().stream().limit(6).toList();
+		List<Product> allActiveProducts = productService.getAllActiveProducts("").stream().limit(8).toList();
+		m.addAttribute("category", allActiveCategory);
+		m.addAttribute("products", allActiveProducts);
 		return "index";
 	}
 
@@ -135,7 +141,7 @@ public class HomeController {
 		return "redirect:/register";
 	}
 
-	@GetMapping("/search-product")
+	@GetMapping("/search")
 	public String searchProduct(@RequestParam String ch, Model m) {
 		List<Product> searchProducts = productService.searchProduct(ch);
 		m.addAttribute("products", searchProducts);

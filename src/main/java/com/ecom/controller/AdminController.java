@@ -66,7 +66,7 @@ public class AdminController {
 			m.addAttribute("countCart", countCart);
 		}
 		List<Category> allActiveCategory = categoryService.getAllActiveCategory();
-		m.addAttribute("category", allActiveCategory);
+		m.addAttribute("categories", allActiveCategory);
 	}
 
 	@GetMapping("/")
